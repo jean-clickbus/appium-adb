@@ -1,10 +1,46 @@
-language: node_js
-node_js:
-  - "7"
-  - "6"
-  - "4"
+# language: node_js
+# node_js:
+#   - "7"
+#   - "6"
+#   - "4"
+# env:
+#   global:
+#     - _FORCE_LOGS=1
+# after_success:
+#   - gulp coveralls
+
+language: android
+sudo: false
+jdk: oraclejdk7
 env:
+  matrix:
+    - ANDROID_TARGET=android-23 ANDROID_ABI=x86_64
   global:
-    - _FORCE_LOGS=1
-after_success:
-  - gulp coveralls
+    # wait up to 10 minutes for adb to connect to emulator
+    - ADB_INSTALL_TIMEOUT=10
+
+android:
+  components:
+  - platform-tools
+  - tools
+  - build-tools-23.0.2
+  - android-23
+
+  # Additional components
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - extra-android-support
+
+  # Emulator for the tests
+  # - sys-img-armeabi-v7a-android-23
+
+before_script:
+  - nvm install 7
+  - npm install
+  - npm install -g gulp
+  - npm install -g mocha
+  - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+
+script:
+  - gulp transpile && mocha -t 90000 -R spec --recursive build/test/functional/
