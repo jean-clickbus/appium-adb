@@ -12,21 +12,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/appium/appium-adb.git"
+    "url": "git+https://github.com/jean-clickbus/appium-adb.git"
   },
-  "author": "",
+  "author": "Habib",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/appium/appium-adb/issues"
+    "url": "https://github.com/jean-clickbus/appium-adb/issues"
   },
   "engines": [
     "node"
   ],
   "bin": {},
   "directories": {
-    "lib": "lib"
+    "test": "test"
   },
-  "homepage": "https://github.com/appium/appium-adb",
+  "homepage": "https://github.com/jean-clickbus/appium-adb",
   "dependencies": {
     "adm-zip": "^0.4.7",
     "appium-support": "^2.4.0",
